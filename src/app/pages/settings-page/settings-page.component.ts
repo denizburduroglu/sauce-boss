@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { settingsReducer } from 'src/store/reducers/settings.reducer';
+import { AppState } from 'src/store/state';
 
 @Component({
   selector: 'app-settings',
@@ -6,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit(): void {
+    // this.store.dispatch();
   }
 
 }
