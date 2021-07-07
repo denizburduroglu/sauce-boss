@@ -1,0 +1,48 @@
+<!--
+    The SVG is the stem
+-->
+<div style="background-color: beige; align-items: center;justify-content: center; display: flex;">
+    <div class="pomodoro-growing-timer" style="height: 500px; width: 500px;justify-content: center;">
+        <div name="tomatoe"
+        id="tomatoe"
+        style="width: 250px; height: 250px; justify-self: center;"
+        [@enlarge]="{ 
+            value: _startTimer, 
+            params: {
+                startWidth: 30,
+                startHeight: 30,
+                endWidth: 100,
+                endHeight: 100,
+                animateTime: timeToEnlarge + 'ms'
+            }
+        }" [@colorChange]="{ 
+            value: _startTimer, 
+            params: {
+                startColor: 'green',
+                endColor: 'red',
+                animateTime: timeToEnlarge + 'ms'
+            }
+        }" style="background-color: red; border-radius: 50%;">
+            
+        </div>
+        <div name="stem" [@enlarge]="{ 
+            value: _startTimer, 
+            params: {
+                startWidth: 30,
+                startHeight: 30,
+                endWidth: 100,
+                endHeight: 100,
+                animateTime: timeToEnlarge + 'ms'
+            }
+        }" style="position:absolute; top:0; left: 0; transform: rotate(-10deg);justify-self: center;">
+            <img src="../../../assets/svgs/stem.svg">    
+        </div>
+        
+        <div name="outline" style="height: 500px; width: 500px; position: absolute; border-radius: 50%; border: green 2px dotted ;border-radius: 50%;">
+
+        </div>
+    </div>
+</div>
+<button [disabled]="_startTimer == 'start'" type="button" (click)="startTimer()">Start Saucin'</button>
+<button [disabled]="_startTimer == 'stop'" type="button" (click)="stopTimer()">Stop Saucin'</button>
+<button type="button" (click)="resetTimer()">Reset</button>

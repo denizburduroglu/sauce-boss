@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
+  startTimer = false;
   constructor() { }
 
   ngOnInit(): void {
