@@ -1,7 +1,7 @@
 import { animate, AnimationBuilder, state, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, interval, Observable, timer } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { BehaviorSubject, interval, Observable, TimeInterval, timer } from 'rxjs';
+import { debounceTime, timeInterval } from 'rxjs/operators';
 import { PomodoroSettingsService } from 'src/app/services/pomodoro-settings.service';
 import { PomodoroTimer } from 'src/models/timer';
 
@@ -13,31 +13,25 @@ import { PomodoroTimer } from 'src/models/timer';
       state('start', style({ 
         width: '{{endWidth}}%',
         height: '{{endHeight}}%'
-      }), {params: { endWidth: '0', endHeight: '0'}}),
-      state('reset', style({
-        width: '{{startWidth}}%',
-        height: '{{startHeight}}%'
-      }), {params: { startWidth: '0', startHeight: '0'}}),
+      }), {params: { endWidth: '30', endHeight: '30'}}),
       transition('* => start', animate("{{animateTime}} linear")),
-      transition('* => reset', animate("{{animateTime}} linear"))
+      transition('* => stop', animate("10ms linear"))
     ]),
     trigger('colorChange', [
       state('start', style({ 
         backgroundColor: '{{endColor}}'
       }), {params: { endColor: 'red'}}),
-      state('reset', style({
-        backgroundColor: '{{startColor}}'
-      }), {params: { startColor: 'green'}}),
       transition('* => start', animate("{{animateTime}} linear")),
-      transition('* => reset', animate("10ms linear"))
+      transition('* => stop', animate("10ms linear"))
     ]),
   ]
 })
 export class PomodoroTimerComponent implements OnInit {
 
   _startTimer : string = '';
-  currentTimer : PomodoroTimer = new PomodoroTimer(250, 250, 0);
+  timeCompletedSeconds : number = 0;
   timeToEnlarge: number = 0;
+  interval = null;
 
   constructor(
     private pomodoroSettingsService : PomodoroSettingsService
@@ -51,19 +45,28 @@ export class PomodoroTimerComponent implements OnInit {
     this.timeToEnlarge = this.pomodoroSettingsService.pomodoroLengthMin;
   }
   startTimer() {
-    this._startTimer = 'start';
+    if(this.timeCompletedSeconds*1000 < this.timeToEnlarge) {
+      this.interval = setInterval(() => {
+        this.timeCompletedSeconds++;
+      }, 1000);
+      this._startTimer = 'start';
+    } else {
+      this.resetTimer();
+    }
   }
 
   stopTimer() {
-    this.currentTimer
-    this._startTimer = '';
+    clearInterval(this.interval);
+    this._startTimer = 'stop';
   }
 
   resetTimer() {
-    this._startTimer = 'reset';
+    this._startTimer = '';
+    this.timeCompletedSeconds = 0;
+    clearInterval(this.interval);
   }
 
-  currentTime() {
-
+  getPercentCompleted() {
+    return ((this.timeCompletedSeconds * 1000)/this.timeToEnlarge)*70;
   }
 }

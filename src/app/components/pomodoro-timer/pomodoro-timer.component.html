@@ -5,22 +5,22 @@
     <div class="pomodoro-growing-timer" style="height: 500px; width: 500px;justify-content: center;">
         <div name="tomatoe"
         id="tomatoe"
-        style="width: 250px; height: 250px; justify-self: center;"
+        style="width: 250px; height: 250px; justify-self: center; background-color: green;"
         [@enlarge]="{ 
             value: _startTimer, 
             params: {
-                startWidth: 30,
-                startHeight: 30,
+                startWidth: 30 + getPercentCompleted(),
+                startHeight: 30 + getPercentCompleted(),
                 endWidth: 100,
                 endHeight: 100,
-                animateTime: timeToEnlarge + 'ms'
+                animateTime: (timeToEnlarge - timeCompletedSeconds * 1000) + 'ms'
             }
         }" [@colorChange]="{ 
             value: _startTimer, 
             params: {
                 startColor: 'green',
                 endColor: 'red',
-                animateTime: timeToEnlarge + 'ms'
+                animateTime: (timeToEnlarge - timeCompletedSeconds * 1000) + 'ms'
             }
         }" style="background-color: red; border-radius: 50%;">
             
@@ -28,11 +28,11 @@
         <div name="stem" [@enlarge]="{ 
             value: _startTimer, 
             params: {
-                startWidth: 30,
-                startHeight: 30,
+                startWidth: 30 + getPercentCompleted(),
+                startHeight: 30 + getPercentCompleted(),
                 endWidth: 100,
                 endHeight: 100,
-                animateTime: timeToEnlarge + 'ms'
+                animateTime: (timeToEnlarge - timeCompletedSeconds * 1000) + 'ms'
             }
         }" style="position:absolute; top:0; left: 0; transform: rotate(-10deg);justify-self: center;">
             <img src="../../../assets/svgs/stem.svg">    
@@ -43,6 +43,7 @@
         </div>
     </div>
 </div>
+<div>{{ timeCompletedSeconds }}</div>
 <button [disabled]="_startTimer == 'start'" type="button" (click)="startTimer()">Start Saucin'</button>
 <button [disabled]="_startTimer == 'stop'" type="button" (click)="stopTimer()">Stop Saucin'</button>
 <button type="button" (click)="resetTimer()">Reset</button>
