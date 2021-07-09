@@ -36,7 +36,6 @@ export class HomePageComponent {
   }
 
   public setupTimer() {
-    this.pomodoroSettings.setupTimer(6500);
     this.pomodoroSettings.timeCompletedSeconds.subscribe((val) => {
       this.currentTime.next(this.pomodoroSettings.getSecondsLeft());
     });
