@@ -1,4 +1,5 @@
-<p>settings works!</p>
-<div [formGroupName]="settingsFormGroup">
-    <input formControlName="pomodoroDuration" type='range' min='0' max='100' value='50' id="pomodoro-duration">
+<div [formGroup]="settingsFormGroup" class="row">
+    <label class="col d-flex justify-content-center">Set Minutes</label>
+    <input class="col" formControlName="pomodoroDuration" type='range' min='0' max='120' value='60' id="pomodoro-duration">
+    <div class="col d-flex justify-content-center">{{ settingsFormGroup.controls.pomodoroDuration.value }}</div>
 </div>
