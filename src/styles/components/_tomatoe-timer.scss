@@ -1,0 +1,84 @@
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes enlarge {
+    from {
+        transform:scale(1)
+    }
+
+    50% {
+        transform:scale(1.2)
+    }
+
+    to {
+        transform:scale(1)
+    }
+}
+
+@keyframes wow {
+    from {
+        transform:skew(0deg) scale(1)
+    }
+
+    from{
+        transform:skew(5deg) scale(1.3)
+    }
+    to {
+        transform:skew(0deg) scale(1)
+    }
+}
+
+#tomatoe-body {
+
+}
+
+#tomatoe-stem {
+    animation-name: spin;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    transform-origin: center;
+    transform-box: fill-box;
+
+}
+
+#tomatoe-left-eye {
+    // animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation-name: enlarge;
+    animation-duration: 2.5s;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+    
+
+    transform-origin: center;
+    transform-box: fill-box;
+
+}
+
+#tomatoe-right-eye {
+    animation-name: enlarge;
+    animation-duration: 2.5s;
+    animation-iteration-count: 1;
+    animation-delay: 1s;
+
+    transform-origin: center;
+    transform-box: fill-box;
+
+}
+
+// #tomatoe-mouth {
+//     animation: wow;
+//     animation-duration: 3s;
+//     animation-iteration-count: infinite;
+//     animation-delay: 1s;
+
+//     transform-origin: center;
+//     transform-box: fill-box;
+// }
+

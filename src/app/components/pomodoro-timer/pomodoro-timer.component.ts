@@ -13,60 +13,43 @@ import { PomodoroTimer } from 'src/models/timer';
       state('start', style({ 
         width: '{{endWidth}}%',
         height: '{{endHeight}}%'
-      }), {params: { endWidth: '30', endHeight: '30'}}),
+      }), {params: { endWidth: '100', endHeight: '100'}}),
+      state('stop', style({ 
+        width: '{{startWidth}}%',
+        height: '{{startHeight}}%'
+      }), {params: { startWidth: '30', startHeight: '30'}}),
       transition('* => start', animate("{{animateTime}} linear")),
-      transition('* => stop', animate("10ms linear"))
+      transition('* => stop', animate("1ms linear"))
     ]),
     trigger('colorChange', [
       state('start', style({ 
         backgroundColor: '{{endColor}}'
       }), {params: { endColor: 'red'}}),
+      state('stop', style({ 
+        backgroundColor: '{{startColor}}'
+      }), {params: { startColor: 'green'}}),
       transition('* => start', animate("{{animateTime}} linear")),
-      transition('* => stop', animate("10ms linear"))
+      transition('* => stop', animate("1ms linear"))
     ]),
   ]
 })
 export class PomodoroTimerComponent implements OnInit {
 
-  _startTimer : string = '';
-  timeCompletedSeconds : number = 0;
-  timeToEnlarge: number = 0;
-  interval = null;
+  @Input() _startTimer : string = 'stop';
 
   constructor(
-    private pomodoroSettingsService : PomodoroSettingsService
+    public pomodoroSettingsService: PomodoroSettingsService
   ) {}
 
-  ngOnInit(): void {
-    this.setupEnlargeAnimation();
+  ngOnInit() {
+
   }
 
-  setupEnlargeAnimation() {
-    this.timeToEnlarge = this.pomodoroSettingsService.pomodoroLengthMin;
-  }
-  startTimer() {
-    if(this.timeCompletedSeconds*1000 < this.timeToEnlarge) {
-      this.interval = setInterval(() => {
-        this.timeCompletedSeconds++;
-      }, 1000);
-      this._startTimer = 'start';
-    } else {
-      this.resetTimer();
-    }
+  getAnimateTime() : string {
+    return (this.pomodoroSettingsService.getSecondsLeft() * 1000).toString() + 'ms';
   }
 
-  stopTimer() {
-    clearInterval(this.interval);
-    this._startTimer = 'stop';
-  }
-
-  resetTimer() {
-    this._startTimer = '';
-    this.timeCompletedSeconds = 0;
-    clearInterval(this.interval);
-  }
-
-  getPercentCompleted() {
-    return ((this.timeCompletedSeconds * 1000)/this.timeToEnlarge)*70;
+  getPercentLeft() : number {
+    return this.pomodoroSettingsService.getPercentCompleted()  * 70/100;
   }
 }
