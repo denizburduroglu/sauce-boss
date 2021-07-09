@@ -12,6 +12,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { HeaderComponent } from './layouts/header/header/header.component';
 import { PomodoroTimerComponent } from './components/pomodoro-timer/pomodoro-timer.component';
 import { PomodoroSettingsService } from './services/pomodoro-settings.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TomatoeTimerComponent } from './components/tomatoe-timer/tomatoe-timer.component';
+import { TimestampPipe } from './components/pipes/timestamp.pipe';
 
 @NgModule({
   declarations: [
@@ -20,16 +23,20 @@ import { PomodoroSettingsService } from './services/pomodoro-settings.service';
     NavBarComponent,
     SettingsPageComponent,
     HeaderComponent,
-    PomodoroTimerComponent
+    PomodoroTimerComponent,
+    TomatoeTimerComponent,
+    TimestampPipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({ settings: settingsReducer})
   ],
   providers: [
-    PomodoroSettingsService
+    PomodoroSettingsService,
+    TimestampPipe
   ],
   bootstrap: [AppComponent]
 })
