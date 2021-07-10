@@ -2,7 +2,7 @@
     The SVG is the stem
 -->
 <div style="align-items: center;justify-content: center; display: flex;">
-    <div class="pomodoro-growing-timer" style="height: 500px; width: 500px;justify-content: center;">
+    <div class="pomodoro-growing-timer pomodoro-completed-size ">
         <div name="tomatoe"
         [@enlarge]="{ 
             value: _startTimer, 
@@ -36,7 +36,7 @@
             <img src="../../../assets/svgs/stem.svg">    
         </div>
         
-        <div name="outline" style="height: 500px; width: 500px; position: absolute; border-radius: 50%; border: green 2px dotted ;border-radius: 50%;">
+        <div name="outline" class="pomodoro-completed-size" style="position: absolute; border-radius: 50%; border: green 2px dotted ;border-radius: 50%;">
 
         </div>
     </div>

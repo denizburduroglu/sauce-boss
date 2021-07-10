@@ -1,6 +1,5 @@
-<p>home-page works!</p>
-<app-pomodoro-timer [_startTimer]="_startTimer"></app-pomodoro-timer>
-<app-tomatoe-timer></app-tomatoe-timer>
+<app-pomodoro-timer *ngIf="currentTime.value >= 0" [_startTimer]="_startTimer"></app-pomodoro-timer>
+<app-tomatoe-timer *ngIf="currentTime.value < 0"></app-tomatoe-timer>
 <div class="home-timer-container mt-4">
     <div>{{ currentTime | async | timestamp : 'hour' }} : {{ currentTime | async | timestamp : 'minute' }} : {{ currentTime | async | timestamp : 'second' }}</div>
     <div>{{ _startTimer }}</div>

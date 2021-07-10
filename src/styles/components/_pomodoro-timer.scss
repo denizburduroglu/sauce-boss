@@ -2,6 +2,22 @@
   position: relative;
   display: flex;
 //   flex-wrap: wrap;
-  width: fit-content;
-  height: fit-content;
+
+  justify-content: center;
+
+}
+
+.pomodoro-completed-size {
+  @include sm-device {
+    height: 80vw;
+    width: 80vw;
+  }; 
+  @include md-device {
+    height: 60vw;
+    width: 60vw;
+  }; 
+  @include lg-device {
+    height: 40vw;
+    width: 40vw;
+  }; 
 }
