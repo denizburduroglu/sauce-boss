@@ -15,6 +15,8 @@ import { PomodoroSettingsService } from './services/pomodoro-settings.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TomatoeTimerComponent } from './components/tomatoe-timer/tomatoe-timer.component';
 import { TimestampPipe } from './components/pipes/timestamp.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { TimestampPipe } from './components/pipes/timestamp.pipe';
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ settings: settingsReducer})
+    StoreModule.forRoot({ settings: settingsReducer}),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     PomodoroSettingsService,
