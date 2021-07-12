@@ -17,6 +17,7 @@ import { TomatoeTimerComponent } from './components/tomatoe-timer/tomatoe-timer.
 import { TimestampPipe } from './components/pipes/timestamp.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ServiceWorkerService } from './services/service-worker.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     PomodoroSettingsService,
+    ServiceWorkerService,
     TimestampPipe
   ],
   bootstrap: [AppComponent]

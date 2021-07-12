@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ServiceWorkerService } from './services/service-worker.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,13 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'sauce-boss';
 
-  constructor() {
+  constructor(
+    private serviceWorkerService: ServiceWorkerService
+  ) {
 
   }
 
   ngOnInit() {
+    this.serviceWorkerService.checkForUpdates();
   }
 }
