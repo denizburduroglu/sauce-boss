@@ -1,15 +1,16 @@
 .root-card {
-    background-color: $medium-orange;
+    background-color: $white-light;
     height: auto;
     width: 90%;
     margin: 5% 5% 10rem 5%;
     box-shadow: 0px 4px 10px 2px grey;
     padding: 3%;
     min-height: 50vh;
+    border-radius: 25px;
 }
 
 .root-container {
-    background-color: $light-orange;
+    background-color: $white-dark;
     height: auto;
     width: auto;
     overflow-x: hidden;

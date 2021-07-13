@@ -12,7 +12,7 @@ export class ServiceWorkerService implements OnInit {
   ) { }
   
   ngOnInit(): void {
-       
+      
   }
 
   checkForUpdates() {
