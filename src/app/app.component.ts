@@ -17,5 +17,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.serviceWorkerService.checkForUpdates();
+    console.log("some update");
   }
 }
