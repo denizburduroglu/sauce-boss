@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { BehaviorSubject } from 'rxjs';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ServiceWorkerService implements OnInit {
   pushNotificationObject : BehaviorSubject<PushSubscription> = new BehaviorSubject<PushSubscription>(null);
   constructor(
     private swPush: SwPush,
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
+    private httpService: HttpService
   ) { }
   
   ngOnInit(): void {
@@ -47,6 +49,12 @@ export class ServiceWorkerService implements OnInit {
         // Our subscription object: sub
         console.log(sub);
         this.pushNotificationObject.next(sub);
+        this.httpService.httpPost(window.location.origin, sub).subscribe(
+          (val) => {
+            console.log("Value: ", val);
+          }, (err) => {
+            console.error(err);
+          });
       }).catch(console.error);
     }
   }

@@ -18,7 +18,7 @@ import { TimestampPipe } from './components/pipes/timestamp.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ServiceWorkerService } from './services/service-worker.service';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +35,7 @@ import { ServiceWorkerService } from './services/service-worker.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     StoreModule.forRoot({ settings: settingsReducer}),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
