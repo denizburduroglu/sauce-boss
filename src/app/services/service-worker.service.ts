@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { SwPush, SwUpdate } from '@angular/service-worker';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class ServiceWorkerService implements OnInit {
   vapidKeys:string=`BEIWN2i8Nmy5TtmwvHR17T6DkeZseog-
   djS92NYRkEcaYFUDSytJAwudB6S9DBGQH4nZVbLJpEWIz_zvBLDmnN8`;
 
+  pushNotificationObject : BehaviorSubject<PushSubscription> = new BehaviorSubject<PushSubscription>(null);
   constructor(
     private swPush: SwPush,
     private swUpdate: SwUpdate
@@ -38,11 +40,14 @@ export class ServiceWorkerService implements OnInit {
       this.swPush.notificationClicks.subscribe((val) => {
         console.log("Notification clicks", val);
       });
+
       this.swPush.requestSubscription({
         serverPublicKey: this.vapidKeys
       }).then(sub => {
+        // Our subscription object: sub
         console.log(sub);
-      }).catch(console.log);
+        this.pushNotificationObject.next(sub);
+      }).catch(console.error);
     }
   }
 }
