@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build --prod",
+    "local-build": "http-server -p 8080 dist/sauce-boss"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,7 @@
     "bootstrap": "^5.0.2",
     "bootstrap-icons": "^1.5.0",
     "express": "^4.17.1",
+    "http-server": "^0.12.3",
     "jquery": "^3.6.0",
     "path": "^0.12.7",
     "rxjs": "^7.2.0",

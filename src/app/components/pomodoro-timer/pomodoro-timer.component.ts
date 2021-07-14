@@ -1,5 +1,5 @@
 import { animate, AnimationBuilder, state, style, transition, trigger } from '@angular/animations';
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import { BehaviorSubject, interval, Observable, TimeInterval, timer } from 'rxjs';
 import { debounceTime, timeInterval } from 'rxjs/operators';
 import { PomodoroSettingsService } from 'src/app/services/pomodoro-settings.service';
@@ -18,7 +18,7 @@ import { PomodoroTimer } from 'src/models/timer';
         width: '{{startWidth}}%',
         height: '{{startHeight}}%'
       }), {params: { startWidth: '30', startHeight: '30'}}),
-      transition('* => start', animate("{{animateTime}} linear")),
+      transition('* => start', animate("{{animateTime}}s linear")),
       transition('* => stop', animate("1ms linear"))
     ]),
     trigger('colorChange', [
@@ -28,28 +28,33 @@ import { PomodoroTimer } from 'src/models/timer';
       state('stop', style({ 
         backgroundColor: '{{startColor}}'
       }), {params: { startColor: 'green'}}),
-      transition('* => start', animate("{{animateTime}} linear")),
+      transition('* => start', animate("{{animateTime}}s linear")),
       transition('* => stop', animate("1ms linear"))
     ]),
   ]
 })
-export class PomodoroTimerComponent implements OnInit {
+export class PomodoroTimerComponent implements OnInit, OnChanges{
 
-  @Input() _startTimer : string = 'stop';
+  @Input() startTimer : string = 'stop';
+  percentComplete : number = 0;
+  animateTime : number = 0;
 
   constructor(
     public pomodoroSettingsService: PomodoroSettingsService
   ) {}
 
   ngOnInit() {
-
+    
   }
 
-  getAnimateTime() : string {
-    return (this.pomodoroSettingsService.getSecondsLeft() * 1000).toString() + 'ms';
+  ngOnChanges(val) {
+    // When state of animation changes setup for new value
+    this.setupAnimation();
   }
 
-  getPercentLeft() : number {
-    return this.pomodoroSettingsService.getPercentCompleted()  * 70/100;
+  setupAnimation() {
+    console.log("%c Setting up pomodoro-timer animation", "color: purple");
+    this.percentComplete = this.pomodoroSettingsService.getPercentCompleted();
+    this.animateTime = this.pomodoroSettingsService.getSecondsLeft();
   }
 }

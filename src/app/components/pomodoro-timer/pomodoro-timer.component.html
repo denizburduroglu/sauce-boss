@@ -5,34 +5,34 @@
     <div class="pomodoro-growing-timer pomodoro-completed-size ">
         <div name="tomatoe"
         [@enlarge]="{ 
-            value: _startTimer, 
+            value: startTimer, 
             params: {
-                startWidth: 30 + getPercentLeft(),
-                startHeight: 30 + getPercentLeft(),
+                startWidth: (percentComplete * 70/100) + 30,
+                startHeight: (percentComplete * 70/100) + 30,
                 endWidth: 100,
                 endHeight: 100,
-                animateTime: getAnimateTime()
+                animateTime: animateTime
             }
         }" [@colorChange]="{ 
-            value: _startTimer, 
+            value: startTimer, 
             params: {
                 startColor: 'green',
                 endColor: 'red',
-                animateTime: getAnimateTime()
+                animateTime: animateTime
             }
         }" style="background-color: red; border-radius: 50%;">
             
         </div>
         <div name="stem" [@enlarge]="{ 
-            value: _startTimer, 
+            value: startTimer, 
             params: {
-                startWidth: 30 + getPercentLeft(),
-                startHeight: 30 + getPercentLeft(),
+                startWidth: (percentComplete * 70/100) + 30,
+                startHeight: (percentComplete * 70/100) + 30,
                 endWidth: 100,
                 endHeight: 100,
-                animateTime: getAnimateTime()
+                animateTime: animateTime
             }
-        }" style="position:absolute; top:0; transform: rotate(-10deg);justify-self: center;">
+        }" style="position:absolute; transform: rotate(-10deg);justify-self: center;">
             <img src="../../../assets/svgs/stem.svg">    
         </div>
         

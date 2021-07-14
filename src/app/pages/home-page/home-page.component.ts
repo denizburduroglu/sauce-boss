@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { PomodoroSettingsService } from 'src/app/services/pomodoro-settings.service';
+import { ServiceWorkerService } from 'src/app/services/service-worker.service';
 
 @Component({
   selector: 'app-home-page',
@@ -11,35 +12,39 @@ export class HomePageComponent {
   _startTimer = 'stop';
   currentTime : BehaviorSubject<number> = new BehaviorSubject<number>(0);
   constructor(
-    public pomodoroSettings: PomodoroSettingsService
+    public pomodoroSettings: PomodoroSettingsService,
+    private serviceWorkerService: ServiceWorkerService
   ) { }
 
   ngOnInit() {
     this.setupTimer();
   }
 
-  public startTimer() {
+  startTimer() {
     if(this.pomodoroSettings.getPercentCompleted() < 100) {
       this._startTimer = 'start';
     }
     this.pomodoroSettings.startTimer();
   }
 
-  public stopTimer() {
+  stopTimer() {
     this._startTimer = 'stop';
     this.pomodoroSettings.stopTimer();
   }
 
-  public resetTimer() {
+  resetTimer() {
     this._startTimer = 'stop';
     this.pomodoroSettings.resetTimer();
   }
 
-  public setupTimer() {
+  setupTimer() {
     this.pomodoroSettings.resetTimer();
     this.pomodoroSettings.timeCompletedSeconds.subscribe((val) => {
       this.currentTime.next(this.pomodoroSettings.getSecondsLeft());
     });
   }
 
+  pushNotificationDemoTest() {
+    this.serviceWorkerService.subscribeToNotifications();
+  }
 }

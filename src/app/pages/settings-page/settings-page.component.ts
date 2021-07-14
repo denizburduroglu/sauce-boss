@@ -12,9 +12,7 @@ import { AppState } from 'src/store/state';
 })
 export class SettingsPageComponent implements OnInit {
 
-  settingsFormGroup : FormGroup = new FormGroup({
-    pomodoroDuration : new FormControl('')
-  });
+  settingsFormGroup : FormGroup = null;
 
   constructor(
     private store: Store<AppState>,
@@ -22,14 +20,20 @@ export class SettingsPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.setupSettingsForm();
     this.listenToFormChanges();
   }
 
   listenToFormChanges() {
     this.settingsFormGroup.valueChanges.pipe(debounceTime(250)).subscribe((val) => {
-      console.log("Seconds", val.pomodoroDuration);
       this.pomodoroSettingsService.setupTimer(val.pomodoroDuration*60);
     })
+  }
+
+  setupSettingsForm() {
+    this.settingsFormGroup = new FormGroup({
+      pomodoroDuration : new FormControl(this.pomodoroSettingsService.timeNeededSeconds.value / 60)
+    });
   }
 
 }
