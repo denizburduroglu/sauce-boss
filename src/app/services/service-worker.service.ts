@@ -8,8 +8,8 @@ import { HttpService } from './http.service';
 })
 export class ServiceWorkerService implements OnInit {
 
-  vapidKeys:string=`BEIWN2i8Nmy5TtmwvHR17T6DkeZseog-
-  djS92NYRkEcaYFUDSytJAwudB6S9DBGQH4nZVbLJpEWIz_zvBLDmnN8`;
+  publicVapidKey:string=`BLnrCrwIadzbL9KY222ex8dusgsMgL6xKQC7QeT2o2thWek-
+  P051r5szlCwzitnuCtjrM_-r1IY2CuFQzKWK0ow`;
 
   pushNotificationObject : BehaviorSubject<PushSubscription> = new BehaviorSubject<PushSubscription>(null);
   constructor(
@@ -44,12 +44,12 @@ export class ServiceWorkerService implements OnInit {
       });
 
       this.swPush.requestSubscription({
-        serverPublicKey: this.vapidKeys
+        serverPublicKey: this.publicVapidKey
       }).then(sub => {
         // Our subscription object: sub
         console.log(sub);
         this.pushNotificationObject.next(sub);
-        this.httpService.httpPost(window.location.origin + '/subscribe', sub).subscribe(
+        this.httpService.httpPost(window.location.origin, { notification : sub }).subscribe(
           (val) => {
             console.log("Value: ", val);
           }, (err) => {

@@ -15,7 +15,7 @@ export class HttpService {
     // this.httpClient.get();
   }
 
-  httpPost(url : string, body) : Observable<any> {
+  httpPost(url : string, body : object) : Observable<any> {
     return this.httpClient.post(url, body);
   }
 }
