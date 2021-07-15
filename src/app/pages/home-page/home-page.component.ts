@@ -13,7 +13,7 @@ export class HomePageComponent {
   currentTime : BehaviorSubject<number> = new BehaviorSubject<number>(0);
   constructor(
     public pomodoroSettings: PomodoroSettingsService,
-    private serviceWorkerService: ServiceWorkerService
+    private serviceWorkerService: ServiceWorkerService,
   ) { }
 
   ngOnInit() {
@@ -41,6 +41,9 @@ export class HomePageComponent {
     this.pomodoroSettings.resetTimer();
     this.pomodoroSettings.timeCompletedSeconds.subscribe((val) => {
       this.currentTime.next(this.pomodoroSettings.getSecondsLeft());
+      if(this.currentTime.value == 0 && this._startTimer == 'start') {
+        this.serviceWorkerService.subscribeToNotifications();
+      }
     });
   }
 
