@@ -48,7 +48,7 @@ export class ServiceWorkerService implements OnInit {
         // Our subscription object: sub
         console.log(sub);
         this.pushNotificationObject.next(sub);
-        this.httpService.httpPost(window.location.origin, { notification : sub }).subscribe(
+        this.httpService.httpPost('https://denizb-push-notification.herokuapp.com/notification', { notification : sub }).subscribe(
           (val) => {
             console.log("Value: ", val);
           }, (err) => {
