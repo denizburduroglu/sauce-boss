@@ -49,7 +49,7 @@ export class ServiceWorkerService implements OnInit {
         // Our subscription object: sub
         console.log(sub);
         this.pushNotificationObject.next(sub);
-        this.httpService.httpPost(window.location.origin, sub).subscribe(
+        this.httpService.httpPost(window.location.origin + '/subscribe', sub).subscribe(
           (val) => {
             console.log("Value: ", val);
           }, (err) => {
