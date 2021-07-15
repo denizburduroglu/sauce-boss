@@ -8,8 +8,7 @@ import { HttpService } from './http.service';
 })
 export class ServiceWorkerService implements OnInit {
 
-  publicVapidKey:string=`BLnrCrwIadzbL9KY222ex8dusgsMgL6xKQC7QeT2o2thWek-
-  P051r5szlCwzitnuCtjrM_-r1IY2CuFQzKWK0ow`;
+  publicVapidKey:string=`BPFJMQ-YaJTkX99MBgc9tW9ov06LQ1-KcBzeR_5kkYPKZ-XY1Syy_7AT8awnL8GECYdslzfylMF2lUJpk-jHq50`;
 
   pushNotificationObject : BehaviorSubject<PushSubscription> = new BehaviorSubject<PushSubscription>(null);
   constructor(
